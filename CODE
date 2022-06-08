@@ -5,7 +5,7 @@ vars<-c("variables")
 summary(data[vars])
 cor(data[,3:5])
 screeplot(PCA,type = "lines")
-PCA1=principal(shuju[,3:5],nfactors=2,rotate="none",score=TRUE)
+PCA1=principal(data[,3:5],nfactors=2,rotate="none",score=TRUE)
 PCA1
 caculate_score<-function(PCA1,m){
   comp_sd<-summary(PCA1)$sdev[1:m] #standard deviation
