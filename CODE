@@ -1,8 +1,6 @@
 library(readxl)
 library(psych)
 data <- read_excel("C:/Users/gaowenxuan/Desktop/data.xlsx")
-vars<-c("variables")
-summary(data[vars])
 cor(data[,3:5])
 screeplot(PCA,type = "lines")
 PCA1=principal(data[,3:5],nfactors=2,rotate="none",score=TRUE)
