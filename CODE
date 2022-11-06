@@ -2,16 +2,12 @@ library(readxl)
 library(psych)
 data <- read_excel("C:/Users/gaowenxuan/Desktop/data.xlsx")
 cor(data[,3:5])
-screeplot(PCA,type = "lines")
-PCA1=principal(data[,3:5],nfactors=2,rotate="none",score=TRUE)
-PCA1
-caculate_score<-function(PCA1,m){
-  comp_sd<-summary(PCA1)$sdev[1:m] #standard deviation
-  comp_score_matrix<-PCA1$scores[,1:m] #components factor score matrix
-  comp_score<-data.frame(comp_score_matrix)
-  comp_score$PC<-as.numeric(comp_score_matrix%*%comp_sd^2/sum(comp_sd^2))
-  return(comp_score)}
-score<-caculate_score(PCA1,2)
+PCA4=princomp(DATA,cor=T)
+summary(PCA4)
+load=loadings(PCA4)
+load1<-load[,1:1]
+load2<-load1/sum(load1)
+M1=rowSums(data[,3:5]*load2)//M1 #PCA-family background
 logr<-glm(major~familybackground+gender+grade+number of siblings,data=data, family="binomial")
 summary(logr)
 exp(coef(logr))
@@ -35,9 +31,9 @@ summary(PCA4)
 load=loadings(PCA4)
 load1<-load[,1:1]
 load2<-load1/sum(load1)
-M1=rowSums(data[,12:14]*load2)//m1 #PCA-intrinsic motivation
-correlations2<-cor(data[,15:17])
-DATA<-data[,15:17]
+M1=rowSums(data[,12:13]*load2)//m1 #PCA-intrinsic motivation
+correlations2<-cor(data[,14:16])
+DATA<-data[,14:16]
 PCA4=princomp(DATA,cor=T)
 summary(PCA4)
 load=loadings(PCA4)
@@ -48,11 +44,20 @@ source("C:/Users/gaowenxuan/Downloads/PROCESS v4.1 for R/process.R")
 process(data, y="major", x="familybackground",m= "intrinsicmotivation", cov=c("gender","grade","numberofsiblings"), model = 4,effsize = 1, total = 1, modelbt = 1, sobel=1,boot = 10000)
 process(data, y="major", x="familybackground",m= "extrinsicmotivation", cov=c("gender","grade","numberofsiblings"), model = 4,effsize = 1, total = 1, modelbt = 1, sobel=1,boot = 10000)
 correlations2<-cor(shuju[,12:16])
-DATA<-data[,18:22]
+DATA<-data[,17:18]
 PCA4=princomp(DATA,cor=T)
 summary(PCA4)
 load=loadings(PCA4)
 load1<-load[,1:1]
 load2<-load1/sum(load1)
-M1=rowSums(data[,18:22]*load2)//m1#PCA-parent´s academic involvementprocess(data, y="major", x="familybackground",m= "intrinsicmotivation", w = "parentsacademicinvolvement", cov（gender，grade，numberofsiblings）, model = 7,effsize = 1, total = 1, stand=1，modelbt = 1, boot = 10000)
-process(data, y="major", x="familybackground",m= "extrinsicmotivation", w = "parentsacademicinvolvement", cov（gender，grade，numberofsiblings）, model = 7,effsize = 1, total = 1, stand=1，modelbt = 1, boot = 10000)
+M1=rowSums(data[,18:19]*load2)//m1#PCA-parental values1 
+correlations2<-cor(data[,19:21])
+DATA<-data[,19:21]
+PCA4=princomp(DATA,cor=T)
+summary(PCA4)
+load=loadings(PCA4)
+load1<-load[,1:1]
+load2<-load1/sum(load1)
+M1=rowSums(data[,20:22]*load2)//m1#PCA-parental values2
+process(data, y="major", x="familybackground",m= "intrinsicmotivation", w = "parental values1", cov（gender，grade，numberofsiblings）, model = 7,effsize = 1, total = 1, stand=1，modelbt = 1, boot = 10000)
+process(data, y="major", x="familybackground",m= "extrinsicmotivation", w = "parentalvalues2", cov（gender，grade，numberofsiblings）, model = 7,effsize = 1, total = 1, stand=1，modelbt = 1, boot = 10000)
